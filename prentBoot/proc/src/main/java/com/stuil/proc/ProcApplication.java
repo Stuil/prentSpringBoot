@@ -1,5 +1,6 @@
 package com.stuil.proc;
 
+import com.stuil.proc.config.RootConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProcApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProcApplication.class, args);
+        SpringApplication.run(RootConfiguration.class, args);
     }
 
 }
