@@ -1,3 +1,4 @@
+/*
 package com.stuil.proc.config;
 
 
@@ -24,11 +25,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedIOException;
 import org.springframework.core.io.Resource;
 import com.google.common.collect.Sets;
+*/
 /**
  * 刷新MyBatis Mapper XML 线程
  * @author ThinkGem
  * @version 2016-5-29
- */
+ *//*
+
 public class MapperRefresh implements java.lang.Runnable {
 
     public static Logger log = LoggerFactory.getLogger(MapperRefresh.class);
@@ -156,14 +159,16 @@ public class MapperRefresh implements java.lang.Runnable {
         }
     }
 
-    /**
+    */
+/**
      * 执行刷新
      * @param filePath 刷新目录
      * @param beforeTime 上次刷新时间
      * @throws NestedIOException 解析异常
      * @throws FileNotFoundException 文件未找到
      * @author ThinkGem
-     */
+     *//*
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void refresh(String filePath, Long beforeTime) throws Exception {
 
@@ -230,12 +235,14 @@ public class MapperRefresh implements java.lang.Runnable {
         }
     }
 
-    /**
+    */
+/**
      * 获取需要刷新的文件列表
      * @param dir 目录
      * @param beforeTime 上次刷新时间
      * @return 刷新文件列表
-     */
+     *//*
+
     private List<File> getRefreshFile(File dir, Long beforeTime) {
         List<File> fileList = new ArrayList<File>();
 
@@ -257,12 +264,14 @@ public class MapperRefresh implements java.lang.Runnable {
         return fileList;
     }
 
-    /**
+    */
+/**
      * 判断文件是否需要刷新
      * @param file 文件
      * @param beforeTime 上次刷新时间
      * @return 需要刷新返回true，否则返回false
-     */
+     *//*
+
     private boolean checkFile(File file, Long beforeTime) {
         if (file.lastModified() > beforeTime) {
             return true;
@@ -270,11 +279,13 @@ public class MapperRefresh implements java.lang.Runnable {
         return false;
     }
 
-    /**
+    */
+/**
      * 获取整数属性
      * @param key
      * @return
-     */
+     *//*
+
     private static int getPropInt(String key) {
         int i = 0;
         try {
@@ -284,19 +295,23 @@ public class MapperRefresh implements java.lang.Runnable {
         return i;
     }
 
-    /**
+    */
+/**
      * 获取字符串属性
      * @param key
      * @return
-     */
+     *//*
+
     private static String getPropString(String key) {
         return prop == null ? null : prop.getProperty(key).trim();
     }
 
-    /**
+    */
+/**
      * 重写 org.apache.ibatis.session.Configuration.StrictMap 类
      * 来自 MyBatis3.4.0版本，修改 put 方法，允许反复 put更新。
-     */
+     *//*
+
     public static class StrictMap<V> extends HashMap<String, V> {
 
         private static final long serialVersionUID = -4950446264854982944L;
@@ -376,3 +391,4 @@ public class MapperRefresh implements java.lang.Runnable {
         }
     }
 }
+*/
