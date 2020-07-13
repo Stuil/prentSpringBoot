@@ -24,6 +24,7 @@ import java.io.IOException;
  * @version: 1.0
  */
 
+/*
 
 @Configuration
 @ComponentScan(value = "com.stuil.proc", excludeFilters = { @ComponentScan.Filter(Controller.class),
@@ -46,3 +47,4 @@ public class RootConfiguration extends SpringBootServletInitializer {
         new MapperRefresh(resources, sqlSession.getConfiguration()).run();
     }
 }
+*/

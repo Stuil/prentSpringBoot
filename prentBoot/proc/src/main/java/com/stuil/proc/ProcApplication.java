@@ -1,14 +1,16 @@
 package com.stuil.proc;
 
-import com.stuil.proc.config.RootConfiguration;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
+@MapperScan("com.stuil.proc.mapper")
+@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 public class ProcApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RootConfiguration.class, args);
+        SpringApplication.run(ProcApplication.class, args);
     }
 
 }
