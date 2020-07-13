@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class ProcApplication {
 
     public static void main(String[] args) {
+        System.out.println("测试提交");
         SpringApplication.run(ProcApplication.class, args);
     }
 
