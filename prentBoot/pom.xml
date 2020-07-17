@@ -41,11 +41,11 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-       <!-- <dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -64,6 +64,34 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.3.2</version>
+        </dependency>
+
+        <!-- mp自动代码生成-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.0.7.1</version>
+        </dependency>
+        <!-- velocity 模板引擎, 默认 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- freemarker 模板引擎 -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
+
+
+        <!-- beetl 模板引擎 -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>2.2.5</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.nutz/nutz -->
@@ -86,8 +114,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.10</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            　　　　　　　
+            <version>1.1.0</version>
+        </dependency>
 
 
         <dependency>
