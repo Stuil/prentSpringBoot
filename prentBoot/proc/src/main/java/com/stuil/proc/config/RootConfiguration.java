@@ -18,8 +18,7 @@ import java.io.IOException;
 /**
  * @title: RootConfiguration
  * @description: xml 热加载
- * @date: 2020/7/3
- * @author: zwh
+ * @author: stuil
  * @copyright: Copyright (c) 2020
  * @version: 1.0
  */
