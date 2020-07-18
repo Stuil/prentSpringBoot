@@ -23,24 +23,14 @@ import java.util.Scanner;
  */
 
 public class MyBatisCodeGenerator {
-    /**
-     * <p>
-     * 读取控制台内容
-     * </p>
-     */
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
+
+    // 表名 多个逗号隔开
+    private static final String[] tableName = ("sys_user").split(",");
+
+    public static void main(String[] args) {
+        new MyBatisCodeGenerator().getGenerator();
     }
+
     public void getGenerator(){
             // 代码生成器
             AutoGenerator mpg = new AutoGenerator();
@@ -56,9 +46,9 @@ public class MyBatisCodeGenerator {
 
             // 数据源配置
             DataSourceConfig dsc = new DataSourceConfig();
-            dsc.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8");
+            dsc.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
             // dsc.setSchemaName("public");
-            dsc.setDriverName("com.mysql.jdbc.Driver");
+            dsc.setDriverName("com.mysql.cj.jdbc.Driver");
             dsc.setUsername("root");
             dsc.setPassword("abc123");
             mpg.setDataSource(dsc);
@@ -80,9 +70,9 @@ public class MyBatisCodeGenerator {
             };
 
             // 如果模板引擎是 freemarker
-            //String templatePath = "/templates/mapper.xml.ftl";
+            String templatePath = "/templates/mapper.xml.ftl";
             // 如果模板引擎是 velocity
-            String templatePath = "/mapper.xml.vm";
+            // String templatePath = "/templates/mapper.xml.vm";
 
             // 自定义输出配置
             List<FileOutConfig> focList = new ArrayList<>();
@@ -91,7 +81,8 @@ public class MyBatisCodeGenerator {
                 @Override
                 public String outputFile(TableInfo tableInfo) {
                     // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                    return projectPath + "/src/main/resources/mapper/"
+                    // 本文为父子项目 所以加上子项目路径，否则文件生成至父项目下
+                    return projectPath + "/proc/src/main/resources/mapper/"
                             + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
                 }
             });
@@ -134,10 +125,10 @@ public class MyBatisCodeGenerator {
             strategy.setEntityLombokModel(true);
             strategy.setRestControllerStyle(true);
             // 公共父类
-            strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
+            //strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
             // 写于父类中的公共字段
             strategy.setSuperEntityColumns("id");
-            strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+            strategy.setInclude(tableName);
             strategy.setControllerMappingHyphenStyle(true);
             strategy.setTablePrefix(pc.getModuleName() + "_");
             mpg.setStrategy(strategy);
