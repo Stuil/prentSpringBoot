@@ -29,6 +29,6 @@ public class SysUserController {
     public String index(){
         List<SysUser> sysUser=sysUserService.list();
         System.out.println(JSON.toJSONString(sysUser));
-        return "index";
+        return "login";
     }
 }
