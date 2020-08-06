@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Mr.Rainbow·登陆</title>
+    <title>登陆</title>
     <link rel="stylesheet" href="../layui/css/layui.css" media="all"/>
     <link rel="stylesheet" href="../login3/login.css" media="all"/>
     <style>
@@ -18,7 +18,7 @@
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-sm12 layui-col-md12 zyl_mar_01">
-            <blockquote class="layui-elem-quote">Mr.Rainbow·简约后台登陆界面</blockquote>
+            <blockquote class="layui-elem-quote">后台登陆界面</blockquote>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
 <!-- Footer -->
 <div class="layui-row">
     <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
-        © 2019 - 简约后台登陆界面 || 简约后台登陆界面版权所有
+        © 2019 - 2020 || 简约后台登陆界面
     </div>
 </div>
 <!-- Footer End -->
@@ -65,7 +65,7 @@
 <!-- LoginForm -->
 <div class="zyl_lofo_main">
     <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
-        <legend>欢迎登陆 - 彩虹先生管理平台</legend>
+        <legend>欢迎登陆 - 管理平台</legend>
     </fieldset>
     <div class="layui-row layui-col-space15">
         <form class="layui-form zyl_pad_01" action="">
@@ -127,8 +127,8 @@
             ,vercodes: function(value){
                 //获取验证码
                 var zylVerCode = $(".zylVerCode").html();
-                if(value!=zylVerCode){
-                    return '验证码错误（区分大小写）';
+                if(value.toLowerCase()!=zylVerCode.toLowerCase()){
+                    return '验证码错误（不区分大小写）';
                 }
             }
             ,content: function(value){
@@ -138,9 +138,16 @@
 
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field),{
+            $.ajax({
+                url: "/login",
+                data: data.field,
+                success : function (res) {
+                    alert(res.code);
+                }
+            });
+           /* layer.alert(JSON.stringify(data.field),{
                 title: '最终的提交信息'
-            })
+            })*/
             return false;
         });
 
