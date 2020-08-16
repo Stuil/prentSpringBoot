@@ -4,6 +4,7 @@ package com.stuil.cons.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.stuil.cons.entity.SysUser;
+import com.stuil.cons.mapper.SysUserMapper;
 import com.stuil.cons.service.SysUserService;
 import com.stuil.cons.utils.ResultAjax;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import java.util.List;
 public class SysUserController {
     @Autowired
     SysUserService sysUserService;
+    @Autowired
+    SysUserMapper mapper;
 
     @RequestMapping("/index")
     public String index(){
@@ -40,6 +43,12 @@ public class SysUserController {
         List<SysUser> sysUser=sysUserService.list();
         System.out.println(JSON.toJSONString(sysUser));
         return "login3";
+    }
+    @RequestMapping("/index3")
+    @ResponseBody
+    public String index3(){
+        List<SysUser> sysUser=mapper.selectUser();
+        return JSON.toJSONString(sysUser);
     }
 
     @RequestMapping("/login")
