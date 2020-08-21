@@ -1,6 +1,7 @@
 package com.stuil.cons.utils;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -18,7 +19,8 @@ import java.security.SecureRandom;
  * @version: 1.0
  */
 
-public class EncryptUtil {
+@Component
+public class EncUtil {
     public static final String MD5 = "MD5";
     public static final String SHA1 = "SHA1";
     public static final String HmacMD5 = "HmacMD5";
@@ -33,17 +35,17 @@ public class EncryptUtil {
     /**AES*/
     public int keysizeAES = 128;
 
-    public static EncryptUtil me;
+    public static EncUtil me;
 
-    private EncryptUtil(){
+    private EncUtil(){
         //单例
     }
     //双重锁
-    public static EncryptUtil getInstance(){
+    public static EncUtil getInstance(){
         if (me==null) {
-            synchronized (EncryptUtil.class) {
+            synchronized (EncUtil.class) {
                 if(me == null){
-                    me = new EncryptUtil();
+                    me = new EncUtil();
                 }
             }
         }

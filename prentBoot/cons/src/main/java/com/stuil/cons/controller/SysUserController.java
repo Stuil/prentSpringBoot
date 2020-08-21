@@ -3,9 +3,11 @@ package com.stuil.cons.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.EncryptUtils;
 import com.stuil.cons.entity.SysUser;
 import com.stuil.cons.mapper.SysUserMapper;
 import com.stuil.cons.service.SysUserService;
+import com.stuil.cons.utils.EncUtil;
 import com.stuil.cons.utils.ResultAjax;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,10 +34,11 @@ public class SysUserController {
     @Autowired
     SysUserMapper mapper;
 
+    @Autowired
+    EncUtil encUtil;
+
     @RequestMapping("/index")
     public String index(){
-        List<SysUser> sysUser=sysUserService.list();
-        System.out.println(JSON.toJSONString(sysUser));
         return "login2";
     }
     @RequestMapping("/index2")
@@ -44,11 +47,9 @@ public class SysUserController {
         System.out.println(JSON.toJSONString(sysUser));
         return "login3";
     }
-    @RequestMapping("/index3")
-    @ResponseBody
+    @RequestMapping("/data")
     public String index3(){
-        List<SysUser> sysUser=mapper.selectUser();
-        return JSON.toJSONString(sysUser);
+        return "index";
     }
 
     @RequestMapping("/login")
@@ -56,8 +57,24 @@ public class SysUserController {
     public ResultAjax login(SysUser sysUser){
         SysUser sysUser1=sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_login_account",sysUser.getUserLoginAccount()));
         if(sysUser1==null){
-            return ResultAjax.fail(-1,"账号错误");
+            return ResultAjax.fail(-1,"账号密码错误");
         }
-        return ResultAjax.success(sysUser1);
+        if(!sysUser1.getUserPwd().equals(encUtil.MD5(sysUser.getUserPwd()))){
+            return ResultAjax.fail(-1,"账号密码错误");
+        }
+        return ResultAjax.success();
+    }
+
+
+    @RequestMapping("/register")
+    @ResponseBody
+    public ResultAjax register(SysUser sysUser){
+        int count=mapper.selectCount(new QueryWrapper<SysUser>().eq("user_login_account",sysUser.getUserLoginAccount()));
+        if(count>0){
+            return ResultAjax.fail(-1,"账号已存在");
+        }
+        sysUser.setUserPwd(encUtil.MD5(sysUser.getUserPwd()));
+        mapper.insert(sysUser);
+        return ResultAjax.success();
     }
 }

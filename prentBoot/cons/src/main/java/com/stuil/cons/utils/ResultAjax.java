@@ -22,6 +22,12 @@ public class ResultAjax {
         resultAjax.setObject(object);
         return resultAjax;
     }
+   public static ResultAjax success(){
+        ResultAjax resultAjax=new ResultAjax();
+        resultAjax.setCode(0);
+        resultAjax.setMsg("成功");
+        return resultAjax;
+    }
 
     public static   ResultAjax fail(int code,String msg){
         ResultAjax resultAjax=new ResultAjax();
