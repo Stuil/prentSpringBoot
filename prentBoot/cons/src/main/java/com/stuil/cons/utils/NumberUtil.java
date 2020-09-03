@@ -1752,29 +1752,75 @@ public class NumberUtil {
     }
 
     // list中map  根据key分组
-    public Map<String, List<Map<String, String>>> groupList() {
-        Map<String, String> map1 = new HashMap<>();
+    public Map<String, List<Map<String, Object>>> groupList() {
+        Map<String, Object> map1 = new HashMap<>();
         map1.put("a", "1");
-        Map<String, String> map2 = new HashMap<>();
+        Map<String, Object> map2 = new HashMap<>();
         map2.put("a", "2");
-        Map<String, String> map3 = new HashMap<>();
-        map3.put("b", "1");
-        List<Map<String, String>> list = new ArrayList<>();
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("a", "1");
+        List<Map<String, Object>> list = new ArrayList<>();
         list.add(map1);
         list.add(map2);
         list.add(map3);
-        Map<String, List<Map<String, String>>> map = list.stream().collect(Collectors.groupingBy
+        Map<String, List<Map<String, Object>>> map = list.stream().collect(Collectors.groupingBy
                 (s));
+        return groupList(list);
+    }
+    public Map<String, List<Map<String, Object>>> groupList(List<Map<String, Object>> students) {
+        Map<String, List<Map<String, Object>>> map = new HashMap<>();
+        List<List<Map<String, Object>>> lists=new ArrayList<>();
+        List<Map<String, Object>> tmpList1=new ArrayList<>();
+        List<Map<String, Object>> tmpList2=new ArrayList<>();
+        List<Map<String, Object>> tmpList3=new ArrayList<>();
+        students.forEach(item->{
+            item.forEach((k,v)->{
+                if(k.equals("a")){
+                    Map<String, Object> objectMap=new HashMap<>();
+                    List<Map<String, Object>> tmpList = map.get(k);
+                    if (tmpList == null) {
+                        tmpList = new ArrayList<>();
+                        tmpList.add(item);
+                        objectMap=item;
+                        tmpList1.add(objectMap);
+                        map.put(v.toString(), tmpList);
+                    } else {
+                        tmpList.add(item);
+                        objectMap=item;
+                        tmpList1.add(objectMap);
+                    }
+                }
+            });
+        });
+        Map<String, Object> mo=new HashMap<>();
+        Map<String, Object> mo1=new HashMap<>();
+        tmpList1.forEach(item->{
+            item.forEach((k,v)->{
+                if(mo.get(k)==v){
+                    Map<String, Object> mo3=new HashMap<>();
+                    mo1.put(k,v);
+                    mo3.put(k,v);
+                    tmpList2.add(mo3);
+                }else {
+                    Map<String, Object> mo4=new HashMap<>();
+                    mo.put(k,v);
+                    mo4.put(k,v);
+                    tmpList3.add(mo4);
+                }
+            });
+        });
+        lists.add(tmpList2);
+        lists.add(tmpList3);
+        System.out.println(lists);
         return map;
     }
-
-    Function<Map<String, String>, String> s = new Function<Map<String, String>, String>() {
+    Function<Map<String, Object>, String> s = new Function<Map<String, Object>, String>() {
 
         @Override
-        public String apply(Map<String, String> t) {
+        public String apply(Map<String, Object> t) {
             String string = "";
-            for (Map.Entry<String, String> entry : t.entrySet()) {
-                string=entry.getKey();
+            for (Map.Entry<String, Object> entry : t.entrySet()) {
+                    string=entry.getKey();
             }
             return string;
         }

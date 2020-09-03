@@ -1,5 +1,6 @@
 package com.stuil.cons.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Strings;
 import org.nutz.lang.Times;
@@ -11,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @description: 时间工具类
@@ -1137,5 +1140,47 @@ public class TimeUtil {
         return calendar.getTimeInMillis() / 1000;
     }
 
+    public  void po() {
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("a", "1");
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("a", "2");
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("a", "1");
+        List<MapsDto> list = new ArrayList<>();
+        MapsDto dto=new MapsDto();
+        MapsDto dto2=new MapsDto();
+        MapsDto dto3=new MapsDto();
+        dto.setMaps(map1);
+        dto2.setMaps(map2);
+        dto3.setMaps(map3);
+        list.add(dto);
+        list.add(dto2);
+        list.add(dto3);
+        Map<String, List<MapsDto>> map = list.stream().collect(Collectors.groupingBy
+                (s));
+        List<List<MapsDto>> mapList2=new ArrayList<>();
+        List<List<Map<String, Object>>> mapList3=new ArrayList<>();
+        for (Map.Entry<String, List<MapsDto>> entry : map.entrySet()) {
+            mapList2.add(entry.getValue());
+        }
+        for (List<MapsDto> mapsDtos : mapList2) {
+            List<Map<String, Object>> mapList=new ArrayList<>();
+            mapsDtos.forEach(i->{
+                mapList.add(i.getMaps());
+            });
+            mapList3.add(mapList);
+        }
+        System.out.println(JSONObject.toJSONString(mapList3));
+    }
+    Function<MapsDto, String> s = new Function<MapsDto, String>() {
 
+        @Override
+        public String apply(MapsDto t) {
+            return t.getMaps().get("a").toString();
+        }
+    };
+    public static void main(String[] args) {
+     new TimeUtil().po();
+    }
 }
