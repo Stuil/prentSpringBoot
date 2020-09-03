@@ -8,10 +8,9 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 数字工具类-引用hutool工具类<br>
@@ -1740,5 +1739,44 @@ public class NumberUtil {
             return selectNum * mathNode(selectNum - 1);
         }
     }
+
+    //  精度范围  判断是否是整数
+    public static boolean getCount(double obj) {
+        double eps = 1e-10;  // 精度范围
+        return obj - Math.floor(obj) < eps;
+    }
+
     // ------------------------------------------------------------------------------------------- Private method end
+    public static void main(String[] args) {
+        System.out.println(new NumberUtil().groupList());
+    }
+
+    // list中map  根据key分组
+    public Map<String, List<Map<String, String>>> groupList() {
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("a", "1");
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("a", "2");
+        Map<String, String> map3 = new HashMap<>();
+        map3.put("b", "1");
+        List<Map<String, String>> list = new ArrayList<>();
+        list.add(map1);
+        list.add(map2);
+        list.add(map3);
+        Map<String, List<Map<String, String>>> map = list.stream().collect(Collectors.groupingBy
+                (s));
+        return map;
+    }
+
+    Function<Map<String, String>, String> s = new Function<Map<String, String>, String>() {
+
+        @Override
+        public String apply(Map<String, String> t) {
+            String string = "";
+            for (Map.Entry<String, String> entry : t.entrySet()) {
+                string=entry.getKey();
+            }
+            return string;
+        }
+    };
 }
