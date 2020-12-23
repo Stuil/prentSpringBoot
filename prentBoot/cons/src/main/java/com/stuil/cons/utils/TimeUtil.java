@@ -1181,6 +1181,13 @@ public class TimeUtil {
         }
     };
     public static void main(String[] args) {
-     new TimeUtil().po();
+        int a=10;
+        List<String> list=new ArrayList<>();
+        for (int i = 0; i < a; i++) {
+            list.add("add"+i);
+        }
+        String collect = list.stream().collect(Collectors.joining(","));
+        System.out.println(list);
+        System.out.println(collect);
     }
 }

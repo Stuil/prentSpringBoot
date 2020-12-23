@@ -46,7 +46,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">所有商品</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;" lay-href="./list1/p1">列表一</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
                         <dd><a href="javascript:;">列表三</a></dd>
                         <dd><a href="">超链接</a></dd>
@@ -55,7 +55,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">解决方案</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="/index">列表一</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
                         <dd><a href="">超链接</a></dd>
                     </dl>
@@ -67,8 +67,8 @@
     </div>
 
     <div class="layui-body">
-        <!-- 内容主体区域 -->
-        <div style="padding: 15px;">内容主体区域</div>
+        <iframe id="iframeMain" src="" style="width: 100%;height: 100%;">
+        </iframe>
     </div>
 
     <div class="layui-footer">
@@ -80,9 +80,34 @@
 <script src="../layui/layui.all.js"></script>
 <script src="../jquery-1.11.1.min.js"></script>
 <script>
+    $(document).ready(function(){
+        $("dd>a").click(function (e) {
+            e.preventDefault();
+            $("#iframeMain").attr("src",$(this).attr("href"));
+        });
+    });
     //JavaScript代码区域
     layui.use('element', function(){
         var element = layui.element;
+
+    });
+    layui.use('table', function(){
+        var table = layui.table;
+        //第一个实例
+        var tableIn = table.render({
+            elem: '#demo'
+            ,url: '/page'
+            ,page: true
+            ,cellMinWidth: 80
+            ,limits: [10,20,30,40,50,60]
+            ,cols: [
+                [
+                    {field: 'id', title: 'ID', sort: true, fixed: 'left'}
+                    ,{field: 'userName', title: 'userName',  sort: true, fixed: 'left'}
+                    ,{field: 'userLoginAccount', title: 'userLoginAccount', sort: true, fixed: 'left'}
+                ]
+            ]
+        });
 
     });
 </script>

@@ -15,7 +15,7 @@ import java.util.List;
  * @title: Generator
  * @description: mybatis自动生成  测试
  * @date: 2020/7/18
- * @author: zwh
+ * @author: stuil
  * @copyright: Copyright (c) 2020
  * @version:
  */
