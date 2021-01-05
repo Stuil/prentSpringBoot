@@ -52,8 +52,12 @@ public class SysUserController {
         return "login3";
     }
     @RequestMapping("/data")
+    public String index13(){
+        return "indexp";
+    }
+    @RequestMapping("/data1")
     public String index3(){
-        return "index";
+        return "indexp1";
     }
 
     @RequestMapping("/login")

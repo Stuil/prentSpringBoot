@@ -7,6 +7,7 @@ import cn.smallbun.screw.core.engine.EngineTemplateType;
 import cn.smallbun.screw.core.execute.DocumentationExecute;
 import cn.smallbun.screw.core.process.ProcessConfig;
 import org.junit.jupiter.api.Test;
+import org.nutz.lang.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +21,7 @@ import java.util.List;
  * @title: DbDoc
  * @description:
  * @date: 2020/12/24
- * @author: zwh
+ * @author: stuil
  * @copyright: Copyright (c) 2020
  * @version: 1.0
  */
@@ -40,13 +41,13 @@ public class DbDoc {
                 // 打开目录
                 .openOutputDir(false)
                 // 文件类型
-                .fileType(EngineFileType.HTML)
+                .fileType(EngineFileType.WORD)
                 // 生成模板实现
                 .produceType(EngineTemplateType.freemarker).build();
         // 生成文档配置（包含以下自定义版本号、描述等配置连接）
         Configuration config = Configuration.builder()
-                .version("1.0.3")
-                .description("生成文档信息描述")
+                .version("1.0.0")
+                .description("权限中心数据库表及表字段文档")
                 .dataSource(dataSourceMysql)
                 .engineConfig(engineConfig)
                 .produceConfig(getProcessConfig())
@@ -62,14 +63,23 @@ public class DbDoc {
      */
     public static ProcessConfig getProcessConfig() {
         // 忽略表名
-        List<String> ignoreTableName = Arrays.asList("a", "test_group");
+        List<String> ignoreTableName = Arrays.asList("aaaa", "aaaaaa");
         // 忽略表前缀，如忽略a开头的数据库表
-        List<String> ignorePrefix = Arrays.asList("a", "t");
+        List<String> ignorePrefix = Arrays.asList("aaaaa", "aaaaa");
         // 忽略表后缀
-        List<String> ignoreSuffix = Arrays.asList("_test", "czb_");
+        List<String> ignoreSuffix = new ArrayList<>();
+        int a=20;
+        for (int i = 0; i <= a; i++) {
+            ignoreSuffix.add("_20"+ Strings.alignRight(i,2,'0'));
+        }
+        int b=12;
+        for (int i = 0; i <= b; i++) {
+            ignoreSuffix.add("_2019"+ Strings.alignRight(i,2,'0'));
+            ignoreSuffix.add("_2020"+ Strings.alignRight(i,2,'0'));
+        }
+        ignoreSuffix.add("_0109");
         return ProcessConfig.builder()
-                //根据名称指定表生成
-                .designatedTableName(Arrays.asList("fire_user"))
+                //.designatedTableName(Arrays.asList("gas_book","gas_book_no"))
                 //根据表前缀生成
                 .designatedTablePrefix(new ArrayList<String>())
                 //根据表后缀生成

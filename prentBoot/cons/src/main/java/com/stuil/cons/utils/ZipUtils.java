@@ -1,5 +1,7 @@
 package com.stuil.cons.utils;
 
+import freemarker.template.SimpleDate;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -7,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -84,5 +88,11 @@ public class ZipUtils {
             }
 
         }
+    }
+
+    public static void main(String[] args) {
+        SimpleDateFormat simpleDateFormat =new SimpleDateFormat ("YYYY-MM-dd HH:mm:ss");
+        String format = simpleDateFormat.format(new Date());
+        System.out.println(format);
     }
 }
