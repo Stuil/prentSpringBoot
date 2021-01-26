@@ -1,6 +1,10 @@
 package com.stuil.cons.utils;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import freemarker.template.SimpleDate;
+import org.nutz.json.Json;
+import org.nutz.json.JsonFormat;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
@@ -10,8 +14,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -91,8 +94,11 @@ public class ZipUtils {
     }
 
     public static void main(String[] args) {
-        SimpleDateFormat simpleDateFormat =new SimpleDateFormat ("YYYY-MM-dd HH:mm:ss");
-        String format = simpleDateFormat.format(new Date());
-        System.out.println(format);
+       /* Sys_role sys_unit=new Sys_role();
+        List<Sys_role> list=new ArrayList<>();
+        list.add(sys_unit);
+        System.out.println(JSONObject.toJSONString(Result.success().addData(list), SerializerFeature.WriteNullStringAsEmpty));
+        System.out.println(Json.toJson(Result.success().addData(list), new JsonFormat().setNullStringAsEmpty(true)));
+*/
     }
 }

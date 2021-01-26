@@ -1,269 +1,320 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <title>登录界面</title>
-    <link href="../css/default.css" rel="stylesheet" type="text/css"/>
-    <!--必要样式-->
-    <link href="../css/styles.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/demo.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/loaders.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>登陆</title>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../login3/login.css" media="all"/>
+    <style>
+        /* 覆盖原框架样式 */
+        .layui-elem-quote {
+            background-color: inherit !important;
+        }
+
+        .layui-input, .layui-select, .layui-textarea {
+            background-color: inherit;
+            padding-left: 30px;
+        }
+
+        .layadmin-user-login-other > * {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .layui-trans, .layui-trans a {
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .layadmin-user-login-other .layui-icon {
+            position: relative;
+            top: 2px;
+            font-size: 26px;
+        }
+
+        .layui-icon-login-qq {
+            color: #3492ED;
+        }
+
+        .layui-icon-login-wechat {
+            color: #4DAF29;
+        }
+
+        .layui-icon-login-weibo {
+            color: #CF1900;
+        }
+    </style>
 </head>
 <body>
-<div class='login'>
-    <div class='login_title'>
-        <span>管理员登录</span>
-    </div>
-    <div class='login_fields'>
-        <div class='login_fields__user'>
-            <div class='icon'>
-                <img alt="" src='img/user_icon_copy.png'>
-            </div>
-            <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="123456"/>
-            <div class='validation'>
-                <img alt="" src='img/tick.png'>
-            </div>
+<!-- Head -->
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 zyl_mar_01">
+            <blockquote class="layui-elem-quote">后台登陆</blockquote>
         </div>
-        <div class='login_fields__password'>
-            <div class='icon'>
-                <img alt="" src='img/lock_icon_copy.png'>
-            </div>
-            <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">
-            <div class='validation'>
-                <img alt="" src='img/tick.png'>
-            </div>
-        </div>
-        <div class='login_fields__password'>
-            <div class='icon'>
-                <img alt="" src='img/key.png'>
-            </div>
-            <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off">
-            <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
-                <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
-            </div>
-        </div>
-        <div class='login_fields__submit'>
-            <input type='button' value='登录'>
-        </div>
-    </div>
-    <div class='success'>
-    </div>
-    <div class='disclaimer'>
-        <p>欢迎登录后台管理系统 更多源码：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
     </div>
 </div>
-<div class='authent'>
-    <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
-        <div class="loader-inner ball-clip-rotate-multiple">
-            <div></div>
-            <div></div>
-            <div></div>
+<!-- Head End -->
+
+<!-- Carousel -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12">
+        <div class="layui-carousel zyl_login_height" id="zyllogin" lay-filter="zyllogin">
+            <div carousel-item="">
+                <div>
+                    <div class="zyl_login_cont"></div>
+                </div>
+                <div>
+                    <img src="../img/01.jpg"/>
+                </div>
+                <div>
+                    <div class="background">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+                <div>
+                    <img src="../img/03.jpg"/>
+                </div>
+            </div>
         </div>
     </div>
-    <p>认证中...</p>
 </div>
-<div class="OverWindows"></div>
+<!-- Carousel End -->
 
-<link href="../layui/css/layui.css" rel="stylesheet" type="text/css"/>
+<!-- Footer -->
+<div class="layui-row">
+    <div class="layui-col-sm12 layui-col-md12 zyl_center zyl_mar_01">
+        © 2019 - 2020 || 简约后台登陆界面
+    </div>
+</div>
+<!-- Footer End -->
 
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery-ui.min.js"></script>
-<script type="text/javascript" src='../js/stopExecutionOnTimeout.js?t=1'></script>
+
+<!-- LoginForm -->
+<div class="zyl_lofo_main">
+    <div id="cp" style="display: block">
+        <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
+            <legend>欢迎登陆 - 管理平台</legend>
+        </fieldset>
+        <div class="layui-row layui-col-space15">
+            <form class="layui-form zyl_pad_01" action="">
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="text" name="userLoginAccount" lay-verify="required" autocomplete="off"
+                               placeholder="账号" class="layui-input">
+                        <i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="password" name="userPwd" lay-verify="required" autocomplete="off"
+                               placeholder="密码"
+                               class="layui-input">
+                        <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-row">
+                        <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                            <div class="layui-form-item">
+                                <input type="text" name="vercode" id="vercode" lay-verify="required|vercodes"
+                                       autocomplete="off" placeholder="验证码" class="layui-input" maxlength="4">
+                                <i class="layui-icon layui-icon-vercode zyl_lofo_icon"></i>
+                            </div>
+                        </div>
+                        <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
+                            <div class="zyl_lofo_vercode zylVerCode" onclick="zylVerCode()"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="demo1">立即登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="pp" style="display: none">
+        <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
+            <legend>欢迎注册 - 管理平台</legend>
+        </fieldset>
+        <div class="layui-row layui-col-space15">
+            <form class="layui-form zyl_pad_01" action="">
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="text" name="userName" lay-verify="required" autocomplete="off"
+                               placeholder="用户名" class="layui-input">
+                        <i class="layui-icon layui-icon-username zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="text" name="userLoginAccount" lay-verify="required" autocomplete="off"
+                               placeholder="账号"
+                               class="layui-input">
+                        <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off"
+                               placeholder="密码"
+                               class="layui-input">
+                        <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="demo2">立即注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-trans layui-form-item layadmin-user-login-other" style="margin-left: 35px;margin-top: 26px;">
+        <label>社交账号登入</label>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
+        <a href="#" id="res" style="" lay-href="" class="" onclick="registerPage()">注册帐号</a>
+        <a href="#" id="log" style="" lay-href="" class="" onclick="loginPage()">已有账号,去登录</a>
+    </div>
+</div>
+<!-- LoginForm End -->
+
+
+<!-- Jquery Js -->
+<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+<!-- Layui Js -->
 <script type="text/javascript" src="../layui/layui.js"></script>
-<script type="text/javascript" src="../js/Particleground.js"></script>
-<script type="text/javascript" src="../js/Treatment.js"></script>
-<script type="text/javascript" src="../js/jquery.mockjax.js"></script>
-<script type="text/javascript">
-    var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
-    var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
-    //默认账号密码
+<!-- Jqarticle Js -->
+<script type="text/javascript" src="../login3/jparticle.min.js"></script>
+<!-- ZylVerificationCode Js-->
+<script type="text/javascript" src="../login3/zylVerificationCode.js"></script>
+<script>
+    $("#log").css("display", "none");
 
-    var truelogin = "123456";
-    var truepwd = "123456";
+    function registerPage() {
+        $("#cp").css("display", "none");
+        $("#pp").css("display", "block");
+        $("#res").css("display", "none");
+        $("#log").css("display", "block");
+    };
 
-    var CodeVal = 0;
-    Code();
+    function loginPage() {
+        $("#cp").css("display", "block");
+        $("#pp").css("display", "none");
+        $("#log").css("display", "none");
+        $("#res").css("display", "block");
+    };
+    layui.use(['carousel', 'form'], function () {
+        var carousel = layui.carousel
+            , form = layui.form;
 
-    function Code() {
-        if (canGetCookie == 1) {
-            createCode("AdminCode");
-            var AdminCode = getCookieValue("AdminCode");
-            showCheck(AdminCode);
-        } else {
-            showCheck(createCode(""));
-        }
-    }
-
-    function showCheck(a) {
-        CodeVal = a;
-        var c = document.getElementById("myCanvas");
-        var ctx = c.getContext("2d");
-        ctx.clearRect(0, 0, 1000, 1000);
-        ctx.font = "80px 'Hiragino Sans GB'";
-        ctx.fillStyle = "#E8DFE8";
-        ctx.fillText(a, 0, 100);
-    }
-
-    $(document).keypress(function (e) {
-        // 回车键事件
-        if (e.which == 13) {
-            $('input[type="button"]').click();
-        }
-    });
-    //粒子背景特效
-    $('body').particleground({
-        dotColor: '#E8DFE8',
-        lineColor: '#133b88'
-    });
-    $('input[name="pwd"]').focus(function () {
-        $(this).attr('type', 'password');
-    });
-    $('input[type="text"]').focus(function () {
-        $(this).prev().animate({'opacity': '1'}, 200);
-    });
-    $('input[type="text"],input[type="password"]').blur(function () {
-        $(this).prev().animate({'opacity': '.5'}, 200);
-    });
-    $('input[name="login"],input[name="pwd"]').keyup(function () {
-        var Len = $(this).val().length;
-        if (!$(this).val() == '' && Len >= 5) {
-            $(this).next().animate({
-                'opacity': '1',
-                'right': '30'
-            }, 200);
-        } else {
-            $(this).next().animate({
-                'opacity': '0',
-                'right': '20'
-            }, 200);
-        }
-    });
-    var open = 0;
-    layui.use('layer', function () {
-        var msgalert = '默认账号:' + truelogin + '<br/> 默认密码:' + truepwd;
-        var index = layer.alert(msgalert, {
-            icon: 6,
-            time: 4000,
-            offset: 't',
-            closeBtn: 0,
-            title: '友情提示',
-            btn: [],
-            anim: 2,
-            shade: 0
-        });
-        layer.style(index, {
-            color: '#777'
-        });
-        //非空验证
-        $('input[type="button"]').click(function () {
-            var login = $('input[name="login"]').val();
-            var pwd = $('input[name="pwd"]').val();
-            var code = $('input[name="code"]').val();
-            if (login == '') {
-                ErroAlert('请输入您的账号');
-            } else if (pwd == '') {
-                ErroAlert('请输入密码');
-            } else if (code == '' || code.length != 4) {
-                ErroAlert('输入验证码');
-            } else {
-                //认证中..
-                fullscreen();
-                $('.login').addClass('test'); //倾斜特效
-                setTimeout(function () {
-                    $('.login').addClass('testtwo'); //平移特效
-                }, 300);
-                setTimeout(function () {
-                    $('.authent').show().animate({right: -320}, {
-                        easing: 'easeOutQuint',
-                        duration: 600,
-                        queue: false
-                    });
-                    $('.authent').animate({opacity: 1}, {
-                        duration: 200,
-                        queue: false
-                    }).addClass('visible');
-                }, 500);
-
-                //登录
-                var JsonData = {login: login, pwd: pwd, code: code};
-                //此处做为ajax内部判断
-                var url = "";
-                if (JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()) {
-                    url = "Ajax/Login";
-                } else {
-                    url = "Ajax/LoginFalse";
+        //自定义验证规则
+        form.verify({
+            userName: function (value) {
+                if (value.length < 5) {
+                    return '账号至少得5个字符';
                 }
-
-
-                AjaxPost(url, JsonData,
-                    function () {
-                        //ajax加载中
-                    },
-                    function (data) {
-                        //ajax返回
-                        //认证完成
-                        setTimeout(function () {
-                            $('.authent').show().animate({right: 90}, {
-                                easing: 'easeOutQuint',
-                                duration: 600,
-                                queue: false
-                            });
-                            $('.authent').animate({opacity: 0}, {
-                                duration: 200,
-                                queue: false
-                            }).addClass('visible');
-                            $('.login').removeClass('testtwo'); //平移特效
-                        }, 2000);
-                        setTimeout(function () {
-                            $('.authent').hide();
-                            $('.login').removeClass('test');
-                            if (data.Status == 'ok') {
-                                //登录成功
-                                $('.login div').fadeOut(100);
-                                $('.success').fadeIn(1000);
-                                $('.success').html(data.Text);
-                                //跳转操作
-
-                            } else {
-                                AjaxErro(data);
-                            }
-                        }, 2400);
-                    })
             }
-        })
-    })
-    var fullscreen = function () {
-        elem = document.body;
-        if (elem.webkitRequestFullScreen) {
-            elem.webkitRequestFullScreen();
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.requestFullScreen) {
-            elem.requestFullscreen();
-        } else {
-            //浏览器不支持全屏API或已被禁用
-        }
-    }
-    if (ajaxmockjax == 1) {
-        $.mockjax({
-            url: 'Ajax/Login',
-            status: 200,
-            responseTime: 50,
-            responseText: {"Status": "ok", "Text": "登录成功<br /><br />欢迎回来"}
+            , pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+            , vercodes: function (value) {
+                //获取验证码
+                var zylVerCode = $(".zylVerCode").html();
+                if (value.toLowerCase() != zylVerCode.toLowerCase()) {
+                    return '验证码错误（不区分大小写）';
+                }
+            }
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
         });
-        $.mockjax({
-            url: 'Ajax/LoginFalse',
-            status: 200,
-            responseTime: 50,
-            responseText: {"Status": "Erro", "Erro": "账号名或密码或验证码有误"}
-        });
-    }
-</script>
 
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            $.ajax({
+                url: "/login",
+                data: data.field,
+                success: function (res) {
+                    if (res.code == 0) {
+                        location.href = "/index";
+                    } else {
+                        layer.alert(res.msg, {
+                            title: '提示'
+                        })
+                    }
+                }
+            });
+            /* layer.alert(JSON.stringify(data.field),{
+                 title: '最终的提交信息'
+             })*/
+            return false;
+        });
+        //监听提交
+        form.on('submit(demo2)', function (data) {
+            $.ajax({
+                url: "/register",
+                data: data.field,
+                success: function (res) {
+                    if (res.code == 0) {
+                        location.href = "/index2";
+                    } else {
+                        layer.alert(res.msg, {
+                            title: '提示'
+                        })
+                    }
+                }
+            });
+            /* layer.alert(JSON.stringify(data.field),{
+                 title: '最终的提交信息'
+             })*/
+            return false;
+        });
+
+
+        //设置轮播主体高度
+        var zyl_login_height = $(window).height() / 1.3;
+        var zyl_car_height = $(".zyl_login_height").css("cssText", "height:" + zyl_login_height + "px!important");
+
+
+        //Login轮播主体
+        carousel.render({
+            elem: '#zyllogin'//指向容器选择器
+            , width: '100%' //设置容器宽度
+            , height: 'zyl_car_height'
+            , arrow: 'always' //始终显示箭头
+            , anim: 'fade' //切换动画方式
+            , autoplay: true //是否自动切换false true
+            , arrow: 'hover' //切换箭头默认显示状态||不显示：none||悬停显示：hover||始终显示：always
+            , indicator: 'none' //指示器位置||外部：outside||内部：inside||不显示：none
+            , interval: '5000' //自动切换时间:单位：ms（毫秒）
+        });
+
+        //监听轮播--案例暂未使用
+        carousel.on('change(zyllogin)', function (obj) {
+            var loginCarousel = obj.index;
+        });
+
+        //粒子线条
+        $(".zyl_login_cont").jParticle({
+            background: "rgba(0,0,0,0)",//背景颜色
+            color: "#fff",//粒子和连线的颜色
+            particlesNumber: 100,//粒子数量
+            //disableLinks:true,//禁止粒子间连线
+            //disableMouse:true,//禁止粒子间连线(鼠标)
+            particle: {
+                minSize: 1,//最小粒子
+                maxSize: 3,//最大粒子
+                speed: 30,//粒子的动画速度
+            }
+        });
+
+    });
+
+</script>
 </body>
 </html>

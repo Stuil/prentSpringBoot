@@ -41,25 +41,30 @@ public class SysUserController {
     @Autowired
     EncUtil encUtil;
 
-    @RequestMapping("/index")
-    public String index(){
-        return "/list1/p1";
-    }
-    @RequestMapping("/index2")
-    public String index2(){
-      //  List<SysUser> sysUser=sysUserService.list();
-        //System.out.println(JSON.toJSONString(sysUser));
-        return "login3";
-    }
-    @RequestMapping("/data")
-    public String index13(){
-        return "indexp";
-    }
-    @RequestMapping("/data1")
-    public String index3(){
-        return "indexp1";
+    @RequestMapping("/")
+    public String homeLogin(){
+        return "login";
     }
 
+    @RequestMapping("/p1")
+    public String p1(){
+        return "/views/p1";
+    }
+
+    @RequestMapping("/p2")
+    public String p2(){
+        return "/views/p2";
+    }
+
+    @RequestMapping("/home")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/index")
+    public String index(){
+        return "/index";
+    }
     @RequestMapping("/login")
     @ResponseBody
     public ResultAjax login(SysUser sysUser){
