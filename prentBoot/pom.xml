@@ -10,20 +10,15 @@
     </parent>
 
     <groupId>com.stuil</groupId>
-    <artifactId>prent</artifactId>
+    <artifactId>cons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>prent</name>
-    <packaging>pom</packaging>
+    <name>boots</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
-    <modules>
-        <module>proc</module>
-        <module>cons</module>
-    </modules>
 
     <dependencies>
         <dependency>
