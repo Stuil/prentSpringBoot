@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Layui</title>
@@ -17,19 +17,23 @@
         <input class="layui-input" name="id" id="demoReload" autocomplete="off">
     </div>
     <button class="layui-btn" data-type="reload">搜索</button>
+    <button id="add" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
 </div>
 <div style="margin-left: 10px">
     <table id="demo" class="layui-hide" lay-filter="test"></table>
 </div>
 
 <script src="../layui/layui.all.js" charset="utf-8"></script>
+<script src="../jquery-1.11.1.min.js"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
-    layui.use('table', function(){
-        var table = layui.table;
+    layui.use(['layer', 'form','table'], function(){
+        var layer = layui.layer,
+            $ = layui.jquery,
+            table = layui.table,
+            form = layui.form;
         //第一个实例
-
         var tableIn = table.render({
             elem: '#demo'
             ,url: '/page'
@@ -44,7 +48,8 @@
                 ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]
             ]
-        });
+        })
+
         //监听事件
         table.on('tool(test)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id);
@@ -53,19 +58,34 @@
                     layer.msg('添加');
                     break;
                 case 'delete':
-
                     layer.msg('删除');
-
                     break;
-//    case 'update':
-//      layer.msg('编辑');
-//    break;
+                case 'update':
+                    layer.msg('编辑');
+                    break;
             };
         });
+
+        $('#add').on('click', function(){
+            layer.open({
+                type: 2,
+                title:"新建配置",
+                closeBtn: false,
+                shift: 2,
+                area: ['400px', '300px'],
+                shadeClose: true,
+                // btn: ['新增', '取消'],
+                // btnAlign: 'c',
+                content: '/toAdd',
+                success: function(layero, index){},
+                yes:function(){
+
+                }
+            });
+        });
     });
-
-
 </script>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 <!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

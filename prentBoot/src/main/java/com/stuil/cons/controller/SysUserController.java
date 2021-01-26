@@ -15,6 +15,7 @@ import com.stuil.cons.utils.ResultAjax;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -97,5 +98,24 @@ public class SysUserController {
         IPage<SysUser> userIPage = new Page<>();
         userIPage = mapper.selectPage(new Page<>(page, limit), null);
         return LayuiResp.createBySuccess(userIPage.getTotal(),userIPage.getRecords());
+    }
+
+
+    /**
+     * @description: 新增
+     */
+    @RequestMapping("/toAdd")
+    public String toAdd(){
+        return "/views/add";
+    }
+    /**
+     * @description: 新增
+     */
+    @RequestMapping("/add")
+    @ResponseBody
+    public ResultAjax add(@RequestBody SysUser sysUser){
+        sysUser.setUserPwd("123456");
+        sysUserService.save(sysUser);
+        return ResultAjax.success();
     }
 }

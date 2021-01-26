@@ -18,14 +18,14 @@ public class ResultAjax {
    public static ResultAjax success(Object object){
         ResultAjax resultAjax=new ResultAjax();
         resultAjax.setCode(0);
-        resultAjax.setMsg("成功");
+        resultAjax.setMsg("操作成功");
         resultAjax.setObject(object);
         return resultAjax;
     }
    public static ResultAjax success(){
         ResultAjax resultAjax=new ResultAjax();
         resultAjax.setCode(0);
-        resultAjax.setMsg("成功");
+        resultAjax.setMsg("操作成功");
         return resultAjax;
     }
 
