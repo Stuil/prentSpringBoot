@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Wrapper;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class SysUserController {
     }
     @RequestMapping("/login")
     @ResponseBody
-    public ResultAjax login(SysUser sysUser){
+    public ResultAjax login(SysUser sysUser, HttpServletRequest request){
         SysUser sysUser1=sysUserService.getOne(new QueryWrapper<SysUser>().eq("user_login_account",sysUser.getUserLoginAccount()));
         if(sysUser1==null){
             return ResultAjax.fail(-1,"账号密码错误");
@@ -76,6 +77,7 @@ public class SysUserController {
         if(!sysUser1.getUserPwd().equals(encUtil.MD5(sysUser.getUserPwd()))){
             return ResultAjax.fail(-1,"账号密码错误");
         }
+        request.getSession().setAttribute("userInfo",sysUser1);
         return ResultAjax.success();
     }
 

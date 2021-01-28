@@ -162,8 +162,16 @@
                 </div>
                 <div class="layui-col-sm12 layui-col-md12">
                     <div class="layui-form-item">
-                        <input type="password" name="userPwd" lay-verify="required|pass" autocomplete="off"
+                        <input id="userPwd" type="password" name="userPwd" lay-verify="required|pass" autocomplete="off"
                                placeholder="密码"
+                               class="layui-input">
+                        <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="password" name="userPwd" lay-verify="required|passQr" autocomplete="off"
+                               placeholder="确认密码"
                                class="layui-input">
                         <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
                     </div>
@@ -222,6 +230,12 @@
                 }
             }
             , pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+            , passQr: function (value) {
+                debugger;
+               if(value!==$("#userPwd").val()) {
+                   return '两次密码不一致';
+               }
+            }
             , vercodes: function (value) {
                 //获取验证码
                 var zylVerCode = $(".zylVerCode").html();

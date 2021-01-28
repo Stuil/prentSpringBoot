@@ -10,32 +10,58 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
+<div class="demoTable" style="margin-top:18px;margin: 16px;">
+    搜索ID：
+    <div class="layui-inline">
+        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+    <button id="add" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">新增</button>
+</div>
+<table class="layui-table" lay-data="{height: 'full-200', cellMinWidth: 80, page: true, limit:20, url:'/page'}">
+    <thead>
+    <tr>
+        <th lay-data="{type:'radio'}"></th>
+        <th lay-data="{field:'id', sort: true,align: 'center'}">ID</th>
+        <th lay-data="{field:'userName',sort: true,align: 'center'}">9999999</th>
+        <th lay-data="{field:'userLoginAccount', sort: true,align: 'center'}">userLoginAccount</th>
+    </tr>
+    </thead>
+</table>
 
-<table id="demo" class="layui-hide" lay-filter="test"></table>
+<div id="addData" style="display: none">
+    測試彈出1111
+</div>
 
 <script src="../layui/layui.all.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
-    layui.use('table', function(){
-        var table = layui.table;
-        //第一个实例
-
-        var tableIn = table.render({
-            elem: '#demo'
-            ,url: '/page'
-            ,page: true
-            ,limits: [10,20,30,40,50,60]
-            ,cols: [
-                [
-                {field: 'id', title: 'ID',  sort: true, fixed: 'left'}
-                ,{field: 'userName', title: 'userName', sort: true, fixed: 'left'}
-                ,{field: 'userLoginAccount', title: 'userLoginAccount',  sort: true, fixed: 'left'}
-            ]
-            ]
-        });
-
-    });
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        $("#add").click(function (){
+            layer.open({
+                type: 1//0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层)
+                ,title: false //不显示标题栏
+                ,closeBtn: false
+                ,area: ['550px','300px']//定义宽高
+                ,shade: 0.8//遮幕
+                ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                ,btn: ['主界面', '取消']
+                ,btnAlign: 'c'//按钮排列：居中对齐
+                ,moveType: 1 //拖拽模式，0或者1
+                ,content: '#addData'//跳转到想要的界面，这里是我自己项目的跳转界面
+                ,
+                success: function (layero) {
+                    var btn = layero.find('.layui-layer-btn');
+                    btn.find('.layui-layer-btn0').attr({
+                        href: '${path}'
+                        , target: '_blank'
+                    });
+                }
+            })
+        })
+      })
 </script>
 
 </body>
