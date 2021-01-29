@@ -14,7 +14,9 @@ import com.stuil.cons.utils.LayuiResp;
 import com.stuil.cons.utils.ResultAjax;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -64,7 +66,9 @@ public class SysUserController {
     }
 
     @RequestMapping("/index")
-    public String index(){
+    public String index(Model model,HttpServletRequest request){
+        SysUser sysUser= (SysUser) request.getSession().getAttribute("userInfo");
+        model.addAttribute("sysUser",sysUser);
         return "/index";
     }
     @RequestMapping("/login")
@@ -119,5 +123,24 @@ public class SysUserController {
         sysUser.setUserPwd("123456");
         sysUserService.save(sysUser);
         return ResultAjax.success();
+    }
+
+    /**
+     * @description: 新增
+     */
+    @RequestMapping("/detail")
+    public String detail(Model model,HttpServletRequest request){
+        SysUser sysUser= (SysUser) request.getSession().getAttribute("userInfo");
+        model.addAttribute("sysUser",sysUser);
+        return "views/detail";
+    }
+
+    /**
+     * @description: 退出登录
+     */
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "login";
     }
 }
