@@ -97,7 +97,7 @@
 
 
 <!-- LoginForm -->
-<div class="zyl_lofo_main">
+<div id="mains" class="zyl_lofo_main">
     <div id="cp" style="display: block">
         <fieldset class="layui-elem-field layui-field-title zyl_mar_02">
             <legend>欢迎登陆 - 管理平台</legend>
@@ -177,6 +177,23 @@
                     </div>
                 </div>
                 <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-form-item">
+                        <input type="text" id="email" name="email" lay-verify="required|email" autocomplete="off"
+                               placeholder="邮箱"
+                               class="layui-input">
+                        <i class="layui-icon layui-icon-password zyl_lofo_icon"></i>
+                    </div>
+                </div>
+
+                <div class="layui-col-sm12 layui-col-md12">
+                    <!--<label class="layui-form-label">输入框</label>-->
+                    <label class="layui-icon layui-icon-vercode layui-form-label formslabel" ></label>
+                    <!--<div class="layui-input-block formsinput">-->
+                    <input type="text" name="mailcaptcha" id="mailcaptcha" required  lay-verify="required" placeholder="邮箱验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 54%;margin-right: 14px;">
+                    <!--</div>-->
+                    <div class="layui-col-xs5"> <div style="margin-left: 10px;"> <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid"  name="btnSendCode" id="btnSendCode">获取验证码</button> </div> </div>
+                </div>
+                <div class="layui-col-sm12 layui-col-md12">
                     <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="demo2">立即注册</button>
                 </div>
             </form>
@@ -204,10 +221,11 @@
 <script type="text/javascript" src="../login3/zylVerificationCode.js"></script>
 <script>
     $("#log").css("display", "none");
-
+    var myEmailCode;
     function registerPage() {
         $("#cp").css("display", "none");
         $("#pp").css("display", "block");
+        $("#mains").css("height","auto");
         $("#res").css("display", "none");
         $("#log").css("display", "block");
     };
@@ -215,6 +233,7 @@
     function loginPage() {
         $("#cp").css("display", "block");
         $("#pp").css("display", "none");
+        $("#mains").css("height","auto");
         $("#log").css("display", "none");
         $("#res").css("display", "block");
     };
@@ -270,12 +289,18 @@
         });
         //监听提交
         form.on('submit(demo2)', function (data) {
+            if(data.field.mailcaptcha!=myEmailCode){
+                layer.alert('验证码不正确', {
+                    title: '提示'
+                })
+                return false;
+            }
             $.ajax({
                 url: "/register",
                 data: data.field,
                 success: function (res) {
                     if (res.code == 0) {
-                        location.href = "/index2";
+                        location.href = "/home";
                     } else {
                         layer.alert(res.msg, {
                             title: '提示'
@@ -288,6 +313,60 @@
              })*/
             return false;
         });
+
+
+        /**
+         * 发送验证码
+         * @type {jQuery|HTMLElement}
+         */
+
+        var InterValObj; //timer变量，控制时间
+        var count = 60; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+        //发送验证码
+        $("#btnSendCode").click(function (){
+            debugger;
+            curCount = count;
+            var email = $('#email').val()===undefined?"":$('#email').val();
+            layer.msg('请稍后');
+            //设置按钮为禁用状态
+            document.getElementById("btnSendCode").setAttribute("disabled","true" );
+            $('#btnSendCode').addClass('layui-btn-disabled');
+            $('#btnSendCode').text(curCount + "秒后重获");
+            // 启动计时器timer处理函数，1秒执行一次
+            InterValObj = window.setInterval(SetRemainTime, 1000);
+            $.ajax({
+                url:"/cesCode",
+                data: {"email":email},
+                success:function(data){
+                    myEmailCode=data.object;
+                },
+                error:function(data){
+                    debugger;
+                    layer.alert('错误',data.msg);
+                }
+            });
+        })
+
+
+
+        //timer处理函数
+        function SetRemainTime(){
+            if(curCount == 0){
+                $('#btnSendCode').removeClass('layui-btn-disabled');
+                $('#btnSendCode').text("重获验证码");
+                window.clearInterval(InterValObj);// 停止计时器
+                document.getElementById("btnSendCode").removeAttribute("disabled");//移除禁用状态改为可用
+            } else{
+                curCount--;
+                $('#btnSendCode').text(curCount + "秒后重获");
+            }
+        }
+
+        /************邮箱验证码结束****************/
+
+
+
 
 
         //设置轮播主体高度
@@ -328,6 +407,10 @@
         });
 
     });
+
+</script>
+<script>
+
 
 </script>
 </body>

@@ -11,7 +11,11 @@ import com.stuil.cons.utils.EncUtil;
 import com.stuil.cons.utils.LayuiResp;
 import com.stuil.cons.utils.ResultAjax;
 import com.stuil.cons.utils.email.EmailUtil;
+import org.nutz.lang.Lang;
+import org.nutz.lang.Strings;
+import org.nutz.lang.Times;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
 /**
  * <p>
@@ -39,10 +44,12 @@ public class SysUserController {
     @Autowired
     EncUtil encUtil;
 
-    @RequestMapping("/")
-    public String homeLogin(){
-        return "login";
-    }
+    @Autowired
+    EmailUtil emailUtil;
+
+    @Value("${webParme.emailEnable}")
+    boolean emailEnable;
+
 
     @RequestMapping("/p1")
     public String p1(){
@@ -91,6 +98,26 @@ public class SysUserController {
         mapper.insert(sysUser);
         return ResultAjax.success();
     }
+
+    /**
+     * @description: 邮箱验证码
+     * @date: 2021/2/1
+     */
+    @RequestMapping("/cesCode")
+    @ResponseBody
+    public ResultAjax emailCode(String email){
+        int r=new Random().nextInt(99999);
+        String ram= Strings.alignRight(r,5,'0');
+        // 发送
+        boolean email1 = emailUtil.sendEmail("1634829010@qq.com", email, "邮箱验证", ram);
+        if (email1){
+            return ResultAjax.success(ram);
+        }else {
+            return ResultAjax.fail(1,"fail");
+        }
+    }
+
+
 
     @RequestMapping("/page")
     @ResponseBody

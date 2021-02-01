@@ -1,6 +1,8 @@
 package com.stuil.cons.utils.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,7 @@ import javax.mail.internet.MimeMessage;
  * @title: EmailUtil
  * @description: 邮箱
  * @date: 2021/1/29
- * @author: zwh
+ * @author: stuil
  * @copyright: Copyright (c) 2020
  * @version: 1.0
  */
@@ -34,8 +36,8 @@ public class EmailUtil {
             sender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
-
         return true;
     }
 }

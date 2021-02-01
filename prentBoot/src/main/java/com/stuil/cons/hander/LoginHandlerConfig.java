@@ -30,7 +30,6 @@ public class LoginHandlerConfig implements WebMvcConfigurer {
          css静态资源
          */
         registration.excludePathPatterns(
-                "/",
                 "/home",
                 "/login",
                 "/register",
