@@ -187,11 +187,13 @@
 
                 <div class="layui-col-sm12 layui-col-md12">
                     <!--<label class="layui-form-label">输入框</label>-->
-                    <label class="layui-icon layui-icon-vercode layui-form-label formslabel" ></label>
+                    <div class="layui-form-item">
+                    <label class="layui-icon layui-icon-vercode layui-form-label formslabel" style="    width: auto;"></label>
                     <!--<div class="layui-input-block formsinput">-->
-                    <input type="text" name="mailcaptcha" id="mailcaptcha" required  lay-verify="required" placeholder="邮箱验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 54%;margin-right: 14px;">
+                    <input type="text" name="mailcaptcha" id="mailcaptcha" required  lay-verify="required" placeholder="邮箱验证码" autocomplete="off" class="layui-input formsinput " style="float: left;width: 167px;margin-right: 29px;">
                     <!--</div>-->
-                    <div class="layui-col-xs5"> <div style="margin-left: 10px;"> <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid"  name="btnSendCode" id="btnSendCode">获取验证码</button> </div> </div>
+                    <div class="layui-col-xs5"> <button style="width: auto;" type="button" class="layui-btn layui-btn-primary layui-btn-fluid"  name="btnSendCode" id="btnSendCode">获取验证码</button> </div>
+                    </div>
                 </div>
                 <div class="layui-col-sm12 layui-col-md12">
                     <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="demo2">立即注册</button>
@@ -325,7 +327,6 @@
         var curCount;//当前剩余秒数
         //发送验证码
         $("#btnSendCode").click(function (){
-            debugger;
             curCount = count;
             var email = $('#email').val()===undefined?"":$('#email').val();
             layer.msg('请稍后');
@@ -342,7 +343,6 @@
                     myEmailCode=data.object;
                 },
                 error:function(data){
-                    debugger;
                     layer.alert('错误',data.msg);
                 }
             });
