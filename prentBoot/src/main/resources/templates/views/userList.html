@@ -14,9 +14,9 @@
 <div class="demoTable" style="margin-top:18px;margin: 16px;">
     搜索ID：
     <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+        <input class="layui-input" name="demoReload" id="demoReload" autocomplete="off">
     </div>
-    <button class="layui-btn" data-type="reload">搜索</button>
+    <button class="layui-btn" data-type="reload" id="search">搜索</button>
     <button id="add" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
 </div>
 <div style="margin-left: 10px">
@@ -36,19 +36,38 @@
         //第一个实例
         var tableIn = table.render({
             elem: '#demo'
-            ,url: '/page'
+            ,id:'testReload'
+            ,url: '/user/page'
             ,page: true
             ,limits: [10,20,30,40,50,60]
+            ,height: 'full-200'
+            ,cellMinWidth: '80'
             ,cols: [
                 [
                 {type:'radio'}
                 ,{field: 'id', title: 'ID',  sort: true,align: 'center' }
-                ,{field: 'userName', title: 'userName', sort: true,align: 'center' }
-                ,{field: 'userLoginAccount', title: 'userLoginAccount',  sort: true,align: 'center'}
+                ,{field: 'name', title: '姓名', sort: true,align: 'center' }
+                ,{field: 'account', title: '登录名',  sort: true,align: 'center'}
+                ,{field: 'sex', title: '性别',align: 'center',templet:'#sexTable'}
+                ,{field: 'phone', title: '手机号码', align: 'center'}
+                ,{field: 'email', title: '邮箱',  align: 'center'}
                 ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]
             ]
-        })
+        });
+
+
+        $('#search').click(function (){
+            tableIn.reload({
+                where: { //设定异步数据接口的额外参数，任意设
+                   keyLike: $("#demoReload").val()
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        });
+
 
         //监听事件
         table.on('tool(test)', function(obj){
@@ -92,5 +111,12 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
 </script>
 
+<script type="text/html" id="sexTable">
+    {{# if(d.sex === 1){ }}
+    <span class="layui-badge layui-bg-green">女</span>
+    {{# } else { }}
+    <span class="layui-badge">男</span>
+    {{# } }}
+</script>
 </body>
 </html>

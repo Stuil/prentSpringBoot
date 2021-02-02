@@ -45,7 +45,7 @@ public class GeneratorCodeConfig {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         final String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/cons/src/main/java");
+        gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("stuil");
         gc.setOpen(false);
         //实体属性 Swagger2 注解

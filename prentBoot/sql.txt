@@ -1,35 +1,70 @@
 /*
-Navicat MySQL Data Transfer
-
-Source Server         : 127.0.0.1
-Source Server Version : 50554
-Source Host           : localhost:3306
-Source Database       : test
-
-Target Server Type    : MYSQL
-Target Server Version : 50554
-File Encoding         : 65001
-
-Date: 2020-07-16 15:51:16
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 5.6.13 : Database - test
+*********************************************************************
 */
 
-SET FOREIGN_KEY_CHECKS=0;
+/*!40101 SET NAMES utf8 */;
 
--- ----------------------------
--- Table structure for sys_user
--- ----------------------------
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`test` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `test`;
+
+/*Table structure for table `sys_user` */
+
 DROP TABLE IF EXISTS `sys_user`;
+
 CREATE TABLE `sys_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_name` varchar(64) NOT NULL COMMENT '用户名',
   `user_login_account` varchar(64) NOT NULL COMMENT '用户登录账号',
   `user_pwd` varchar(64) NOT NULL COMMENT '用户密码',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_account_index` (`user_login_account`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------
--- Records of sys_user
--- ----------------------------
+/*Data for the table `sys_user` */
+
+insert  into `sys_user`(`id`,`user_name`,`user_login_account`,`user_pwd`,`email`,`createTime`,`updateTime`) values
+(1,'t1','t1','4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,NULL),
+(3,'t2','t2','4QrcOUm6Wau+VuBX8g+IPg==',NULL,NULL,NULL);
+
+/*Table structure for table `user_info` */
+
+DROP TABLE IF EXISTS `user_info`;
+
+CREATE TABLE `user_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) NOT NULL COMMENT '姓名',
+  `account` varchar(255) NOT NULL COMMENT '账号',
+  `password` varchar(1024) NOT NULL COMMENT '密码',
+  `sex` int(1) DEFAULT NULL COMMENT '性别',
+  `phone` varchar(64) DEFAULT NULL COMMENT '手机号码',
+  `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
+  `reserve_one` varchar(1024) DEFAULT NULL COMMENT '备用字段1',
+  `reserve_two` varchar(1024) DEFAULT NULL COMMENT '备用字段2',
+  `reserve_three` varchar(1024) DEFAULT NULL COMMENT '备用字段3',
+  `create_data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_data` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `disable` int(1) DEFAULT NULL COMMENT '是否启用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `user_info` */
+
+insert  into `user_info`(`id`,`name`,`account`,`password`,`sex`,`phone`,`email`,`reserve_one`,`reserve_two`,`reserve_three`,`create_data`,`update_data`,`disable`) values
+(1,'雷欧娜','leiouna','123456',0,'13398569856','133963963@163.com',NULL,NULL,NULL,'2021-02-02 16:43:27','0000-00-00 00:00:00',NULL);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

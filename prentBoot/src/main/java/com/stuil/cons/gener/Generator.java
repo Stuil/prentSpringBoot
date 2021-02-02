@@ -27,10 +27,10 @@ public class Generator {
     // 自定义
     private static final String author = "stuil";
     // 包名
-    private static final String packageName = "com.stuil.proc";
-    private static final String moduleName = "door";
-    private static final String[] tableName = ("sys_user").split(",");
-    private static final String tablePrefix = "sys";
+    private static final String packageName = "com.stuil";
+    private static final String moduleName = "cons";
+    private static final String[] tableName = ("user_info").split(",");
+    private static final String tablePrefix = "user";
 
     public static void main(String[] args) {
         // 代码生成器
@@ -81,7 +81,7 @@ public class Generator {
         String driverName = "com.mysql.cj.jdbc.Driver";
         dsc.setDriverName(driverName);
         dsc.setUsername("root");
-        dsc.setPassword("abc123");
+        dsc.setPassword("1111111");
         return dsc;
     }
 

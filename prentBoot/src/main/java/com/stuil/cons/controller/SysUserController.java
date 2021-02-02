@@ -51,15 +51,6 @@ public class SysUserController {
     boolean emailEnable;
 
 
-    @RequestMapping("/p1")
-    public String p1(){
-        return "/views/p1";
-    }
-
-    @RequestMapping("/p2")
-    public String p2(){
-        return "/views/p2";
-    }
 
     @RequestMapping("/home")
     public String login(){
@@ -117,44 +108,6 @@ public class SysUserController {
         }
     }
 
-
-
-    @RequestMapping("/page")
-    @ResponseBody
-    public LayuiResp page(Integer page,Integer limit){
-        IPage<SysUser> userIPage = new Page<>();
-        userIPage = mapper.selectPage(new Page<SysUser>(page, limit), null);
-        return LayuiResp.createBySuccess(userIPage.getTotal(),userIPage.getRecords());
-    }
-
-
-    /**
-     * @description: 新增
-     */
-    @RequestMapping("/toAdd")
-    public String toAdd(){
-        return "/views/add";
-    }
-    /**
-     * @description: 新增
-     */
-    @RequestMapping("/add")
-    @ResponseBody
-    public ResultAjax add(@RequestBody SysUser sysUser){
-        sysUser.setUserPwd("123456");
-        sysUserService.save(sysUser);
-        return ResultAjax.success();
-    }
-
-    /**
-     * @description: 新增
-     */
-    @RequestMapping("/detail")
-    public String detail(Model model,HttpServletRequest request){
-        SysUser sysUser= (SysUser) request.getSession().getAttribute("userInfo");
-        model.addAttribute("sysUser",sysUser);
-        return "views/detail";
-    }
 
     /**
      * @description: 退出登录
