@@ -61,7 +61,7 @@ public class SysUserController {
     public String index(Model model,HttpServletRequest request){
         SysUser sysUser= (SysUser) request.getSession().getAttribute("userInfo");
         model.addAttribute("sysUser",sysUser);
-        return "/index";
+        return "index";
     }
     @RequestMapping("/login")
     @ResponseBody

@@ -40,13 +40,13 @@ public class UserInfoController {
 
     @RequestMapping("/listInfo")
     public String listInfo(){
-        return "/views/listInfo";
+        return "views/listInfo";
     }
 
 
     @RequestMapping("/userList")
     public String userList(){
-        return "/views/userList";
+        return "views/userList";
     }
 
 
@@ -73,7 +73,7 @@ public class UserInfoController {
      */
     @RequestMapping("/toAdd")
     public String toAdd(){
-        return "/views/add";
+        return "views/add";
     }
 
     /**
@@ -92,6 +92,6 @@ public class UserInfoController {
     public String detail(Model model, HttpServletRequest request){
         SysUser sysUser= (SysUser) request.getSession().getAttribute("userInfo");
         model.addAttribute("sysUser",sysUser);
-        return "/views/detail";
+        return "views/detail";
     }
 }

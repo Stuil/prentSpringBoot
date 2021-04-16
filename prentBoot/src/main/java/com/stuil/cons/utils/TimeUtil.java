@@ -1180,6 +1180,101 @@ public class TimeUtil {
             return t.getMaps().get("a").toString();
         }
     };
+
+    /**
+     * 获取两个日期之间的所有日期集合
+     * @param minDate
+     * @param maxDate
+     * @return
+     * @throws Exception
+     */
+    public static List<String> getDaysBetween(String minDate, String maxDate) throws Exception {
+        ArrayList<String> result = new ArrayList<String>();
+        //格式化为年月日
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+        min.setTime(sdf.parse(minDate));
+        max.setTime(sdf.parse(maxDate));
+        max.add(Calendar.DATE, +1);
+        Calendar curr = min;
+        while (curr.before(max)) {
+            result.add(sdf.format(curr.getTime()));
+            curr.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        return result;
+    }
+
+    /**
+     *  获取两个日期间年月集合
+     * @param minDate 最小时间  2015-01
+     * @param maxDate 最大时间 2015-10
+     * @return 日期集合 格式为 年-月
+     * @throws Exception
+     */
+    public static List<String> getMonthBetween(String minDate, String maxDate) throws Exception {
+        ArrayList<String> result = new ArrayList<String>();
+        //格式化为年月
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+
+        min.setTime(sdf.parse(minDate));
+        min.set(min.get(Calendar.YEAR), min.get(Calendar.MONTH), 1);
+
+        max.setTime(sdf.parse(maxDate));
+        max.set(max.get(Calendar.YEAR), max.get(Calendar.MONTH), 2);
+
+        Calendar curr = min;
+        while (curr.before(max)) {
+            result.add(sdf.format(curr.getTime()));
+            curr.add(Calendar.MONTH, 1);
+        }
+
+        return result;
+    }
+
+    /**
+     * @description: 计算日期集合  月份
+     */
+    private static List<String> getMonths(String startMonth, String endMonth) {
+        Calendar c = Calendar.getInstance();
+        List<String> allDays = new ArrayList<>();
+        if (Strings.isNotBlank(startMonth) && Strings.isNotBlank(endMonth)) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date date1 = sdf.parse(startMonth + "-01"); // 开始日期
+                Date date2 = sdf.parse(endMonth + "-01"); //结束日期
+                if (date1.after(c.getTime())) {
+                    date1 = Times.parse("yyyy-MM-dd", String.format("%s-%s-01", c.get(Calendar.YEAR), c.get(Calendar.MONTH)));
+                }
+                if (date2.after(c.getTime())) {
+                    date2 = Times.parse("yyyy-MM-dd", String.format("%s-%s-01", c.get(Calendar.YEAR), c.get(Calendar.MONTH) ));
+                }
+                Calendar c1 = Calendar.getInstance();
+                Calendar c2 = Calendar.getInstance();
+                allDays.add(Times.format("yyyy-MM", date1));
+                c1.setTime(date1);
+                c2.setTime(date2);
+                while (c1.compareTo(c2) < 0) {
+                    // 开始日期加一个月直到等于结束日期为止
+                    c1.add(Calendar.MONTH, 1);
+                    Date tempDate = c1.getTime();
+                    allDays.add(Times.format("yyyy-MM", tempDate));
+                }
+            } catch (Exception e) {
+                throw Lang.makeThrow("日期字符串非法:%s-%s", startMonth, endMonth);
+            }
+        } else {
+            //上月的统计
+            allDays.add( Times.format("yyyy-MM", Times.nextMonth(new Date(), -1)));
+        }
+        return allDays;
+    }
+
+
+
     public static void main(String[] args) {
         int a=10;
         List<String> list=new ArrayList<>();
@@ -1189,5 +1284,6 @@ public class TimeUtil {
         String collect = list.stream().collect(Collectors.joining(","));
         System.out.println(list);
         System.out.println(collect);
+        System.out.println(getMonths("2020-01","2021-04"));
     }
 }

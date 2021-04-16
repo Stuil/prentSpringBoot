@@ -31,6 +31,8 @@ public class LoginHandlerConfig implements WebMvcConfigurer {
          */
         registration.excludePathPatterns(
                 "/home",
+                "/callBack1",
+                "/callBack",
                 "/login",
                 "/register",
                 "/**/*.html",
